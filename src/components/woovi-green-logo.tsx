@@ -1,4 +1,4 @@
-export function WooviLogo() {
+export function WooviGreenLogo() {
   return (
     <svg
       width="124"
