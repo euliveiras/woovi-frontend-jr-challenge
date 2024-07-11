@@ -23,7 +23,7 @@ function Wrapper({
 }) {
   return (
     <div
-      className={`relative flex flex-col border-x-2 border-b-2 p-2 has-[:checked]:border-2 has-[:checked]:border-green-400 has-[:checked]:bg-green-100 [&:last-of-type]:rounded-b-lg [&:nth-child(1)]:mt-4  [&:nth-child(1)]:gap-2 [&:nth-child(1)]:rounded-lg [&:nth-child(1)]:border-t-2 [&:nth-child(1)]:pb-4 [&:nth-child(2)]:mt-8 [&:nth-child(2)]:rounded-t-lg [&:nth-child(2)]:border-2 [&:nth-child(4)]:gap-2 [&:nth-child(4)]:border-x-2 [&:nth-child(4)]:border-b-2 [&:nth-child(4)]:py-4 ${className}`}
+      className={`relative flex flex-col border-x-2 border-b-2 p-2 has-[:checked]:border-2 has-[:checked]:border-custom-green-400 has-[:checked]:bg-custom-green-200 [&:last-of-type]:rounded-b-lg [&:nth-child(1)]:mt-4  [&:nth-child(1)]:gap-2 [&:nth-child(1)]:rounded-lg [&:nth-child(1)]:border-t-2 [&:nth-child(1)]:pb-4 [&:nth-child(2)]:mt-8 [&:nth-child(2)]:rounded-t-lg [&:nth-child(2)]:border-2 [&:nth-child(4)]:gap-2 [&:nth-child(4)]:border-x-2 [&:nth-child(4)]:border-b-2 [&:nth-child(4)]:py-4 ${className}`}
     >
       {children}
     </div>
@@ -39,7 +39,7 @@ export function FirstStep() {
   console.log(selectedInstallment);
 
   return (
-    <section className="flex size-full flex-col items-center overflow-hidden p-4">
+    <section className="flex size-full flex-col items-center overflow-hidden p-4 pb-8">
       <header className="text-lg font-bold">João, como você quer pagar?</header>
       <div className="mt-4 overflow-scroll px-4">
         <RadioGroup className="grid">
