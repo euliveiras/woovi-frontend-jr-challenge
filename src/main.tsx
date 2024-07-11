@@ -5,11 +5,18 @@ import App from "./App.tsx";
 import "./index.css";
 import { theme } from "./theme.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Payment } from "./components/payment.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    children: [
+      {
+        path: "payment",
+        element: <Payment />,
+      },
+    ],
   },
 ]);
 

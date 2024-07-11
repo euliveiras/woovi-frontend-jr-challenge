@@ -1,13 +1,13 @@
-import { RadioGroup } from "@mui/material";
-import { CustomRadioInput } from "../custom-input";
+import RadioGroup from "@mui/material/RadioGroup";
+import { CustomRadioInput } from "../custom-radio-input";
 import { CustomFormControl } from "./custom-form-control";
 import { CustomLabel } from "./custom-label";
 import { FirstLabelSentence } from "./first-label-sentence";
 import { PositionedText } from "./positioned-text";
 import { SecondLabelSentence } from "./second-label-sentence";
 import { TriangleShapeContainer } from "./triangle-shape-container";
-import { useState } from "react";
 import { useCustomModal } from "../custom-modal";
+import { useSearchParams } from "react-router-dom";
 
 const installments = [1, 2, 3, 4, 5, 6, 7];
 const price = { value: 30500, currency: "BRL" } as {
@@ -31,28 +31,37 @@ function Wrapper({
   );
 }
 
-export function FirstStep() {
-  const [selectedInstallment, setSelectedInstallment] = useState<number | null>(
-    null,
-  );
-  const { Modal, isOpen, showModal, hideModal } = useCustomModal();
+type StepProps = {
+  onNextStep(searchParams: URLSearchParams): void;
+};
+
+export function FirstStep({ onNextStep }: StepProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedInstallment = searchParams.get("installment");
+  const { Modal } = useCustomModal();
+
   const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedInstallment(Number(e.target.value));
-    showModal();
+    searchParams.set("installment", e.target.value);
+    setSearchParams(searchParams);
   };
 
   const onCancel = () => {
-    setSelectedInstallment(null);
-    hideModal();
+    searchParams.delete("installment");
+    setSearchParams(searchParams);
   };
 
   const onConfirm = () => {
-    console.log("confirm");
+    searchParams.set("installment", String(selectedInstallment));
+    onNextStep(searchParams);
   };
 
   return (
-    <section className="flex size-full flex-col items-center overflow-hidden p-4 pb-8">
-      <Modal open={isOpen} onCancel={onCancel} onConfirm={onConfirm}>
+    <>
+      <Modal
+        open={typeof selectedInstallment === "string"}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+      >
         <p>Parcelar em {selectedInstallment}?</p>
       </Modal>
       <header className="text-lg font-bold">João, como você quer pagar?</header>
@@ -65,7 +74,7 @@ export function FirstStep() {
                   <CustomFormControl
                     className="pt-4"
                     value={installment}
-                    checked={selectedInstallment === installment}
+                    checked={Number(selectedInstallment) === installment}
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
                       <CustomLabel>
@@ -91,7 +100,7 @@ export function FirstStep() {
               return (
                 <Wrapper key={installment}>
                   <CustomFormControl
-                    checked={selectedInstallment === installment}
+                    checked={Number(selectedInstallment) === installment}
                     value={installment}
                     className="pt-2"
                     control={<CustomRadioInput onChange={onRadioChange} />}
@@ -111,7 +120,7 @@ export function FirstStep() {
               return (
                 <Wrapper key={installment}>
                   <CustomFormControl
-                    checked={selectedInstallment === installment}
+                    checked={Number(selectedInstallment) === installment}
                     value={installment}
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
@@ -135,7 +144,7 @@ export function FirstStep() {
               return (
                 <Wrapper key={installment}>
                   <CustomFormControl
-                    checked={selectedInstallment === installment}
+                    checked={Number(selectedInstallment) === installment}
                     value={installment}
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
@@ -151,6 +160,6 @@ export function FirstStep() {
           })}
         </RadioGroup>
       </div>
-    </section>
+    </>
   );
 }
