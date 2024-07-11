@@ -7,6 +7,7 @@ import { PositionedText } from "./positioned-text";
 import { SecondLabelSentence } from "./second-label-sentence";
 import { TriangleShapeContainer } from "./triangle-shape-container";
 import { useState } from "react";
+import { useCustomModal } from "../custom-modal";
 
 const installments = [1, 2, 3, 4, 5, 6, 7];
 const price = { value: 30500, currency: "BRL" } as {
@@ -34,12 +35,26 @@ export function FirstStep() {
   const [selectedInstallment, setSelectedInstallment] = useState<number | null>(
     null,
   );
-  const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const { Modal, isOpen, showModal, hideModal } = useCustomModal();
+  const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedInstallment(Number(e.target.value));
-  console.log(selectedInstallment);
+    showModal();
+  };
+
+  const onCancel = () => {
+    setSelectedInstallment(null);
+    hideModal();
+  };
+
+  const onConfirm = () => {
+    console.log("confirm");
+  };
 
   return (
     <section className="flex size-full flex-col items-center overflow-hidden p-4 pb-8">
+      <Modal open={isOpen} onCancel={onCancel} onConfirm={onConfirm}>
+        <p>Parcelar em {selectedInstallment}?</p>
+      </Modal>
       <header className="text-lg font-bold">João, como você quer pagar?</header>
       <div className="mt-4 overflow-scroll px-4">
         <RadioGroup className="grid">
@@ -50,6 +65,7 @@ export function FirstStep() {
                   <CustomFormControl
                     className="pt-4"
                     value={installment}
+                    checked={selectedInstallment === installment}
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
                       <CustomLabel>
@@ -75,6 +91,7 @@ export function FirstStep() {
               return (
                 <Wrapper key={installment}>
                   <CustomFormControl
+                    checked={selectedInstallment === installment}
                     value={installment}
                     className="pt-2"
                     control={<CustomRadioInput onChange={onRadioChange} />}
@@ -94,6 +111,7 @@ export function FirstStep() {
               return (
                 <Wrapper key={installment}>
                   <CustomFormControl
+                    checked={selectedInstallment === installment}
                     value={installment}
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
@@ -117,6 +135,7 @@ export function FirstStep() {
               return (
                 <Wrapper key={installment}>
                   <CustomFormControl
+                    checked={selectedInstallment === installment}
                     value={installment}
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
