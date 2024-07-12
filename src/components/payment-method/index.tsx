@@ -36,8 +36,8 @@ export function PaymentMethod({ onNextStep }: StepProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedInstallment = searchParams.get("installment");
   const value = searchParams.get("value") ?? "";
-  const currency = searchParams.get("currency") ?? "BRL";
-const price = { value, currency }
+  const currency = (searchParams.get("currency") ?? "BRL") as "BRL";
+  const price = { value, currency };
   const { Modal } = useCustomModal();
 
   const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
