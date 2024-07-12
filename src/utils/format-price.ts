@@ -1,5 +1,5 @@
 export type PriceProps = {
-  value: number;
+  value: string;
   currency: "BRL";
 };
 
@@ -7,5 +7,5 @@ export function formatPrice(data: PriceProps) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: data.currency,
-  }).format(data.value);
+  }).format(Number(data.value));
 }

@@ -11,10 +11,6 @@ import { useSearchParams } from "react-router-dom";
 import { StepHeader } from "../step-header";
 
 const installments = [1, 2, 3, 4, 5, 6, 7];
-const price = { value: 30500, currency: "BRL" } as {
-  value: number;
-  currency: "BRL";
-};
 
 function Wrapper({
   children,
@@ -39,6 +35,9 @@ type StepProps = {
 export function PaymentMethod({ onNextStep }: StepProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedInstallment = searchParams.get("installment");
+  const value = searchParams.get("value") ?? "";
+  const currency = searchParams.get("currency") ?? "BRL";
+const price = { value, currency }
   const { Modal } = useCustomModal();
 
   const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
