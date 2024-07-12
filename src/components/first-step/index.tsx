@@ -8,6 +8,7 @@ import { SecondLabelSentence } from "./second-label-sentence";
 import { TriangleShapeContainer } from "./triangle-shape-container";
 import { useCustomModal } from "../custom-modal";
 import { useSearchParams } from "react-router-dom";
+import { StepHeader } from "../step-header";
 
 const installments = [1, 2, 3, 4, 5, 6, 7];
 const price = { value: 30500, currency: "BRL" } as {
@@ -64,8 +65,10 @@ export function FirstStep({ onNextStep }: StepProps) {
       >
         <p>Parcelar em {selectedInstallment}?</p>
       </Modal>
-      <header className="text-lg font-bold">João, como você quer pagar?</header>
-      <div className="mt-4 overflow-scroll px-4">
+      <StepHeader>
+        <p>João, como você quer pagar?</p>
+      </StepHeader>
+      <div className="overflow-scroll px-4">
         <RadioGroup className="grid">
           {installments.map((installment) => {
             if (installment === 1) {
