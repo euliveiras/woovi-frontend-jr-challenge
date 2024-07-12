@@ -36,7 +36,7 @@ type StepProps = {
   onNextStep(searchParams: URLSearchParams): void;
 };
 
-export function FirstStep({ onNextStep }: StepProps) {
+export function PaymentMethod({ onNextStep }: StepProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedInstallment = searchParams.get("installment");
   const { Modal } = useCustomModal();

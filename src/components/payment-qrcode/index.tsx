@@ -95,7 +95,7 @@ function CustomStepper({
   );
 }
 
-export function SecondStep() {
+export function PaymentQrCode() {
   return (
     <div className="size-full overflow-scroll">
       <StepHeader className="leading-tight">
