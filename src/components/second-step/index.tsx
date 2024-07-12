@@ -119,7 +119,7 @@ export function SecondStep() {
         </div>
       </section>
       <div className="flex flex-col items-center font-extrabold">
-        <p className="text-gray-400 text-sm">Prazo de pagamento</p>
+        <p className="text-sm text-gray-400">Prazo de pagamento</p>
         <p className="text-xs">15/11/2021 - 08:17</p>
       </div>
       <div className="flex flex-col">
