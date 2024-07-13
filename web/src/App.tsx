@@ -7,10 +7,11 @@ function App() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  useEffect(
-    () => navigate(`/payment?${searchParams}`, { replace: true }),
-    [navigate, searchParams],
-  );
+  useEffect(() => {
+    if (!window.location.pathname.includes("mock-payment")) {
+      navigate(`/payment?${searchParams}`, { replace: true });
+    }
+  }, [navigate, searchParams]);
 
   return (
     <div className="flex h-dvh w-full flex-col items-center justify-center bg-gray-950 px-8 py-4">

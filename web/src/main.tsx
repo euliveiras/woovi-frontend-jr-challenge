@@ -6,6 +6,7 @@ import "./index.css";
 import { theme } from "./theme.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Payment } from "./components/payment.tsx";
+import { MockPayment } from "./components/mock-payment.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "payment",
         element: <Payment />,
+      },
+      {
+        path: "mock-payment",
+        element: <MockPayment />,
       },
     ],
   },

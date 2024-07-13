@@ -7,6 +7,7 @@ import { formatPrice } from "../../utils/format-price";
 import { stepper } from "./custom-stepper";
 import { CustomAccordion } from "./custom-accordion";
 import { WrapperWithDivider } from "./wrapper-with-divider";
+import {useSocket} from "../use-socket";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
@@ -17,10 +18,16 @@ export function PaymentPixCreditCard({
   onNextStep,
 }: PaymentPixCreditCardProps) {
   const [searchParams] = useSearchParams();
+	const {isConnected} = useSocket()
+
+console.log(isConnected)
+
   const id = searchParams.get("id");
   const value = Number(searchParams.get("value"));
   const currency = searchParams.get("currency");
-  const qrCodeValue = `${import.meta.env.VITE_API_URL}/mock-payment?value=${Math.round(value / 2)}&id=${id}`;
+  const qrCodeValue = `${
+    import.meta.env.VITE_API_URL
+  }/mock-payment?value=${Math.round(value / 2)}&id=${id}`;
 
   const firstPayment = formatPrice({
     value: Math.round(value / 2),
