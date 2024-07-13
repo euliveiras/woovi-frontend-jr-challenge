@@ -7,5 +7,5 @@ export function formatPrice(data: PriceProps) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: data.currency,
-  }).format(Number(data.value));
+  }).format(Number(data.value) / 100);
 }

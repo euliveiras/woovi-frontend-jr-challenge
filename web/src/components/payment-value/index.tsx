@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Button from "@mui/material/Button";
 import CurrencyInput from "react-currency-input-field";
 
@@ -7,16 +7,21 @@ export function PaymentValue({
 }: {
   onNextStep(urlSearchParams: URLSearchParams): void;
 }) {
-  const [value, setValue] = useState(3050000);
-  const onConfirm = () => {
+  const [value, setValue] = useState<string | undefined>("3050000");
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const searchParams = new URLSearchParams();
-    searchParams.set("value", String(value));
+	if(!value) return
+    searchParams.set("value", value);
     searchParams.set("currency", "BRL");
     searchParams.set("id", "id" + Math.random().toString(16).slice(2));
     onNextStep(searchParams);
   };
   return (
-    <div className="flex h-full flex-col items-center gap-3 py-12">
+    <form
+      onSubmit={onSubmit}
+      className="flex h-full flex-col items-center gap-3 py-12"
+    >
       <p>Digite o valor do pagamento</p>
       <CurrencyInput
         id="input-example"
@@ -24,19 +29,20 @@ export function PaymentValue({
         placeholder="Please enter a number"
         value={value}
         allowNegativeValue={false}
+        allowDecimals
         intlConfig={{ locale: "pt-BR", currency: "BRL" }}
         decimalsLimit={2}
-        onValueChange={(value) => setValue(Number(value ?? 0))}
+        onValueChange={(value) => setValue(value)}
       />
 
       <Button
+        type="submit"
         variant="contained"
         sx={{ marginTop: "auto" }}
-        disabled={value <= 0}
-        onClick={onConfirm}
+        disabled={!value}
       >
         <p className="normal-case">Prosseguir</p>
       </Button>
-    </div>
+    </form>
   );
 }
