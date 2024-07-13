@@ -12,6 +12,7 @@ export function PaymentValue({
     const searchParams = new URLSearchParams();
     searchParams.set("value", String(value));
     searchParams.set("currency", "BRL");
+    searchParams.set("id", "id" + Math.random().toString(16).slice(2));
     onNextStep(searchParams);
   };
   return (

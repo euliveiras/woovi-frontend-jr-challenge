@@ -17,7 +17,7 @@ import {
   StepIconProps,
 } from "@mui/material";
 import { StepHeader } from "../step-header";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
@@ -120,6 +120,14 @@ type PaymentQrCodeProps = {
 
 export function PaymentQrCode({ onNextStep }: PaymentQrCodeProps) {
   const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const qrCodeValue = `${window.location.origin}/mock-payment?id=${id}`
+
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(qrCodeValue.toString());
+  };
+
   return (
     <div className="size-full overflow-scroll">
       <StepHeader className="leading-tight">
@@ -127,7 +135,7 @@ export function PaymentQrCode({ onNextStep }: PaymentQrCodeProps) {
       </StepHeader>
       <section className="flex flex-col gap-4">
         <div className="mx-auto flex w-fit items-center justify-center rounded-md border-2 border-custom-green-400 p-4">
-          <QRCodeSVG value="https://reactjs.org" size={200} />
+          <QRCodeSVG value={qrCodeValue.toString()} size={200} />
         </div>
         <div className="px-6 pb-2">
           <Button
@@ -135,6 +143,7 @@ export function PaymentQrCode({ onNextStep }: PaymentQrCodeProps) {
             variant="contained"
             color="secondary"
             endIcon={<ContentCopyIcon />}
+            onClick={onCopy}
           >
             <p className="w-fit whitespace-nowrap font-semibold normal-case">
               Clique para copiar QR CODE
