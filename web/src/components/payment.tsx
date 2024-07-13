@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { PaymentMethod } from "./payment-method";
-import { PaymentQrCode } from "./payment-qrcode";
+import { PaymentPixCreditCard } from "./payment-pix-credit-card";
 import { PaymentValue } from "./payment-value";
 
 export function Payment() {
@@ -16,7 +16,7 @@ export function Payment() {
     <>
       {step === "0" && <PaymentValue onNextStep={onNextStep} />}
       {step === "1" && <PaymentMethod onNextStep={onNextStep} />}
-      {step === "2" && <PaymentQrCode onNextStep={onNextStep} />}
+      {step === "2" && <PaymentPixCreditCard onNextStep={onNextStep} />}
     </>
   );
 }

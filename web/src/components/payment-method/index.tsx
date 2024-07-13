@@ -9,6 +9,7 @@ import { TriangleShapeContainer } from "./triangle-shape-container";
 import { useCustomModal } from "../custom-modal";
 import { useSearchParams } from "react-router-dom";
 import { StepHeader } from "../step-header";
+import { calculateFee } from "../../utils/calculate-fee";
 
 const installments = [1, 2, 3, 4, 5, 6, 7];
 
@@ -36,8 +37,7 @@ export function PaymentMethod({ onNextStep }: StepProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedInstallment = searchParams.get("installment");
   const value = searchParams.get("value") ?? "";
-  const currency = (searchParams.get("currency") ?? "BRL") as "BRL";
-  const price = { value, currency };
+  const currency = searchParams.get("currency") ?? "BRL";
   const { Modal } = useCustomModal();
 
   const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +52,10 @@ export function PaymentMethod({ onNextStep }: StepProps) {
 
   const onConfirm = () => {
     searchParams.set("installment", String(selectedInstallment));
+    searchParams.set(
+      "value",
+      String(calculateFee(value, Number(selectedInstallment))),
+    );
     onNextStep(searchParams);
   };
 
@@ -80,7 +84,10 @@ export function PaymentMethod({ onNextStep }: StepProps) {
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
                       <CustomLabel>
-                        <FirstLabelSentence n={installment} price={price} />
+                        <FirstLabelSentence
+                          n={installment}
+                          price={{ value: Number(value), currency }}
+                        />
                         <p className="text-xs font-bold text-green-400">
                           Ganhe 3% de Cashback
                         </p>
@@ -108,7 +115,20 @@ export function PaymentMethod({ onNextStep }: StepProps) {
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
                       <CustomLabel>
-                        <FirstLabelSentence n={installment} price={price} />
+                        <FirstLabelSentence
+                          n={installment}
+                          price={{
+                            value:
+                              calculateFee(value, installment) / installment,
+                            currency,
+                          }}
+                        />
+                        <SecondLabelSentence
+                          price={{
+                            value: calculateFee(value, installment),
+                            currency,
+                          }}
+                        />
                         <PositionedText
                           className="-top-4 left-6"
                           text={"Pix parcelado"}
@@ -127,8 +147,20 @@ export function PaymentMethod({ onNextStep }: StepProps) {
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
                       <CustomLabel>
-                        <FirstLabelSentence n={installment} price={price} />
-                        <SecondLabelSentence price={price} />
+                        <FirstLabelSentence
+                          n={installment}
+                          price={{
+                            value:
+                              calculateFee(value, installment) / installment,
+                            currency,
+                          }}
+                        />
+                        <SecondLabelSentence
+                          price={{
+                            value: calculateFee(value, installment),
+                            currency,
+                          }}
+                        />
                       </CustomLabel>
                     }
                   />
@@ -151,8 +183,20 @@ export function PaymentMethod({ onNextStep }: StepProps) {
                     control={<CustomRadioInput onChange={onRadioChange} />}
                     label={
                       <CustomLabel>
-                        <FirstLabelSentence n={installment} price={price} />
-                        <SecondLabelSentence price={price} />
+                        <FirstLabelSentence
+                          n={installment}
+                          price={{
+                            value:
+                              calculateFee(value, installment) / installment,
+                            currency,
+                          }}
+                        />
+                        <SecondLabelSentence
+                          price={{
+                            value: calculateFee(value, installment),
+                            currency,
+                          }}
+                        />
                       </CustomLabel>
                     }
                   />

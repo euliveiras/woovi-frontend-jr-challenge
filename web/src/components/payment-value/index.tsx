@@ -11,8 +11,8 @@ export function PaymentValue({
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const searchParams = new URLSearchParams();
-	if(!value) return
-    searchParams.set("value", value);
+    if (!value) return;
+    searchParams.set("value", String(Number(value.replace(",", ""))));
     searchParams.set("currency", "BRL");
     searchParams.set("id", "id" + Math.random().toString(16).slice(2));
     onNextStep(searchParams);
