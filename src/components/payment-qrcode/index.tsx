@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import RadioButtonUncheckedRoundedIcon from "@mui/icons-material/RadioButtonUncheckedRounded";
 import { QRCodeSVG } from "qrcode.react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Stepper, { StepperProps } from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -13,8 +14,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   StepConnector,
+  StepIconProps,
 } from "@mui/material";
 import { StepHeader } from "../step-header";
+import { useSearchParams } from "react-router-dom";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
@@ -48,12 +51,27 @@ function CustomStepContent({
   );
 }
 
+function CustomStepLabelIcon(props: StepIconProps) {
+  return props.completed ? (
+    <CheckCircleIcon className="text-custom-green-400" />
+  ) : (
+    <RadioButtonUncheckedRoundedIcon
+      className={props.active ? "text-custom-green-400" : "text-gray-400"}
+    />
+  );
+}
+
 function CustomStepLabel({
   children,
   ...rest
 }: StepLabelProps & { children: React.ReactNode }) {
   return (
-    <StepLabel className="whitespace-nowrap" sx={{ padding: 0 }} {...rest}>
+    <StepLabel
+      className="whitespace-nowrap"
+      StepIconComponent={CustomStepLabelIcon}
+      sx={{ padding: 0 }}
+      {...rest}
+    >
       <p className="font-bold text-body-gray-400">{children}</p>
     </StepLabel>
   );
@@ -85,6 +103,7 @@ function CustomStepper({
 }: StepperProps & { children: React.ReactNode }) {
   return (
     <Stepper
+      activeStep={1}
       sx={{ display: "grid", gridTemplateRows: "1fr auto 1fr" }}
       connector={<StepConnector />}
       orientation="vertical"
@@ -95,7 +114,12 @@ function CustomStepper({
   );
 }
 
-export function PaymentQrCode() {
+type PaymentQrCodeProps = {
+  onNextStep(searchParams: URLSearchParams): void;
+};
+
+export function PaymentQrCode({ onNextStep }: PaymentQrCodeProps) {
+  const [searchParams] = useSearchParams();
   return (
     <div className="size-full overflow-scroll">
       <StepHeader className="leading-tight">
@@ -124,35 +148,19 @@ export function PaymentQrCode() {
       </div>
       <div className="flex flex-col">
         <WrapperWithDivider>
-          <CustomStepper className="w-full">
-            <Step
-              active
-              className="flex items-center justify-between"
-              key={steps[0].label}
-            >
-              <CustomStepLabel
-                icon={
-                  <RadioButtonUncheckedRoundedIcon className="text-custom-green-400" />
-                }
-              >
-                {steps[0].label}
-              </CustomStepLabel>
-              <CustomStepContent>R$ 123132.00</CustomStepContent>
-            </Step>
-            <Step
-              active
-              className="flex items-center justify-between"
-              key={steps[1].label}
-            >
-              <CustomStepLabel
-                icon={
-                  <RadioButtonUncheckedRoundedIcon className="text-gray-300" />
-                }
-              >
-                {steps[1].label}
-              </CustomStepLabel>
-              <CustomStepContent>R$ 4444000</CustomStepContent>
-            </Step>
+          <CustomStepper activeStep={Number(0)} className="w-full">
+            {steps.map((step) => {
+              return (
+                <Step
+                  className="flex items-center justify-between"
+                  key={step.label}
+                  expanded
+                >
+                  <CustomStepLabel>{step.label}</CustomStepLabel>
+                  <CustomStepContent>R$ 123132.00</CustomStepContent>
+                </Step>
+              );
+            })}
           </CustomStepper>
         </WrapperWithDivider>
         <WrapperWithDivider>
