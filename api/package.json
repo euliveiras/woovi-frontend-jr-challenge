@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/euliveiras/woovi-frontend-challenge-api#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
