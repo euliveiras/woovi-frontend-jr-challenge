@@ -17,7 +17,7 @@ import {
   StepIconProps,
 } from "@mui/material";
 import { StepHeader } from "../step-header";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
@@ -121,8 +121,7 @@ type PaymentQrCodeProps = {
 export function PaymentQrCode({ onNextStep }: PaymentQrCodeProps) {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const qrCodeValue = `${window.location.origin}/mock-payment?id=${id}`
-
+  const qrCodeValue = `${import.meta.env.VITE_API_URL}/mock-payment?id=${id}`;
 
   const onCopy = () => {
     navigator.clipboard.writeText(qrCodeValue.toString());

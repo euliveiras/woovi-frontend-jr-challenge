@@ -1,0 +1,33 @@
+{
+  "name": "woovi-frontend-challenge-api",
+  "version": "1.0.0",
+  "description": "api for the frontend challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules ./src/server.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euliveiras/woovi-frontend-challenge-api.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "euliveiras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/euliveiras/woovi-frontend-challenge-api/issues"
+  },
+  "homepage": "https://github.com/euliveiras/woovi-frontend-challenge-api#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
+  }
+}
