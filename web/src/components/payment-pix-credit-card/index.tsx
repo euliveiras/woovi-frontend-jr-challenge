@@ -18,9 +18,8 @@ export function PaymentPixCreditCard({
   onNextStep,
 }: PaymentPixCreditCardProps) {
   const [searchParams] = useSearchParams();
-	const {isConnected} = useSocket()
-
-console.log(isConnected)
+	const { events } = useSocket()
+const isFirstPaymentConfirmed = events.includes("first-payment:read")
 
   const id = searchParams.get("id");
   const value = Number(searchParams.get("value"));
@@ -72,7 +71,7 @@ console.log(isConnected)
       </div>
       <div className="flex flex-col">
         <WrapperWithDivider>
-          <stepper.Container activeStep={Number(0)} className="w-full">
+          <stepper.Container activeStep={isFirstPaymentConfirmed ? 1 : 0} className="w-full">
             <stepper.Step key={steps[0].label}>
               <stepper.StepLabel>{steps[0].label}</stepper.StepLabel>
               <stepper.StepContent>{firstPayment}</stepper.StepContent>
