@@ -3,7 +3,6 @@ import Modal, { ModalProps } from "@mui/material/Modal";
 
 type CustomModalProps = ModalProps & {
   children: React.ReactNode;
-  onConfirm(): void;
   onCancel(): void;
   CloseButton: React.ReactNode;
   ConfirmButton?: React.ReactNode;
