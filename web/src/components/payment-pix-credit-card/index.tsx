@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
 import { QRCodeSVG } from "qrcode.react";
+import { Option } from "@mui/base/Option";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { StepHeader } from "../step-header";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -11,14 +12,41 @@ import { useSocket } from "../use-socket";
 import { useCustomModal } from "../custom-modal";
 import { ErrorMessage } from "../error-message";
 import { CustomInput } from "./custom-input";
+import Select from "@mui/material/Select";
+import { MenuItem } from "@mui/material";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
 type QrCodeStepProps = { value: string; qrCodeValue: string };
+type CustomSelectProps = { value: number; installment: number };
 
-function CreditCardStep() {
+function CustomSelect({ installment, value }: CustomSelectProps) {
+  const [searchParams] = useSearchParams();
+  const currency = searchParams.get("currency");
+  const arr = Array.from(Array(installment).keys()).map((n) => ++n);
   return (
-    <form>
+    <Select defaultValue={1}>
+      {arr.map((val) => {
+        return (
+          <MenuItem value={val}>
+            {val}x{" "}
+            {formatPrice({ value: Math.round(Number(value) / val), currency })}
+          </MenuItem>
+        );
+      })}
+    </Select>
+  );
+}
+
+function CreditCardStep({
+  installment,
+  value,
+}: {
+  installment: number;
+  value: number;
+}) {
+  return (
+    <form className="flex flex-col">
       <CustomInput label="Nome completo" />
       <CustomInput label="CPF" />
       <CustomInput label="Número do cartão" />
@@ -26,6 +54,10 @@ function CreditCardStep() {
         <CustomInput label="Vencimento" />
         <CustomInput label="CVV" />
       </span>
+      <CustomSelect value={value} installment={installment} />
+      <Button variant="contained" type="submit">
+        Pagar
+      </Button>
     </form>
   );
 }
@@ -77,6 +109,7 @@ export function PaymentPixCreditCard({
   const id = searchParams.get("id");
   const value = Number(searchParams.get("value"));
   const currency = searchParams.get("currency");
+  const installment = searchParams.get("installment");
   const qrCodeValue = `${
     import.meta.env.VITE_API_URL
   }/mock-payment?value=${Math.round(value / 2)}&id=${id}`;
@@ -90,6 +123,8 @@ export function PaymentPixCreditCard({
     value: value - Math.round(value / 2),
     currency,
   });
+
+  const lastPaymentValue = value - Math.round(value / 2);
 
   return (
     <div className="size-full overflow-scroll">
@@ -108,11 +143,18 @@ export function PaymentPixCreditCard({
           title={"Algo deu errado! (╯°□°)╯︵ ┻━┻"}
         />
       </Modal>
-      {isFirstPaymentConfirmed ? (
-        <CreditCardStep />
+      <CreditCardStep
+        value={lastPaymentValue}
+        installment={Number(installment)}
+      />
+      {/*isFirstPaymentConfirmed ? (
+        <CreditCardStep
+          value={lastPaymentValue}
+          installments={Number(installments)}
+        />
       ) : (
         <QrCodeStep value={firstPayment} qrCodeValue={qrCodeValue.toString()} />
-      )}
+      )*/}
       <div className="flex flex-col items-center font-extrabold">
         <p className="text-sm text-gray-400">Prazo de pagamento</p>
         <p className="text-xs">15/11/2021 - 08:17</p>
