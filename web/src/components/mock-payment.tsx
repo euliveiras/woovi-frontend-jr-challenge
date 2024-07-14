@@ -6,8 +6,13 @@ import { useMutation } from "@tanstack/react-query";
 export function MockPayment() {
   const [searchParams] = useSearchParams();
   const mutation = useMutation({
-    mutationFn: () => {
-      return fetch(new URL(import.meta.env.VITE_SOCKET_URL) + "mock-payment");
+    mutationFn: async () => {
+      const res = await fetch(
+        new URL(import.meta.env.VITE_SOCKET_URL) + "mock-payment",
+      );
+      if (res.status < 200 || res.status >= 300) throw new Error();
+
+      return res;
     },
   });
 
@@ -37,6 +42,14 @@ export function MockPayment() {
             Pedido confirmado!
           </p>
           <p className="text-sm">Você já pode fechar esta janela.</p>
+        </span>
+      )}
+      {mutation.isError && (
+        <span className="mt-4 flex flex-col items-center gap-1">
+          <p className="text-2xl font-bold text-red-500">
+            Algo deu errado (︶︹︶)
+          </p>
+          <p className="text-sm">Tente atualizar a página.</p>
         </span>
       )}
     </div>
