@@ -12,7 +12,6 @@ import { QrCode } from "./qr-code";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
-
 type PaymentPixCreditCardProps = {
   onNextStep(searchParams: URLSearchParams): void;
 };

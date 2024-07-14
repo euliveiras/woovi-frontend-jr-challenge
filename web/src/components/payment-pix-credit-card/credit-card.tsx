@@ -8,6 +8,15 @@ import { useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { ErrorMessage } from "../error-message";
 
+const formFields = {
+  name: "Nome",
+  cpf: "CPF",
+  "card-number": "Número do cartão",
+  "card-due-date": "Vencimento do cartão",
+  "card-cvv": "CVV",
+  "card-installments": "Número de parcelas",
+} as Record<string, string>;
+
 export function CreditCard({
   installment,
   value,
@@ -101,7 +110,7 @@ export function CreditCard({
           {ref.current &&
             Array.from(new FormData(ref.current)).map(([key, value]) => (
               <span className="flex justify-between gap-1" key={key}>
-                <p className="font-bold">{key}</p>
+                <p className="font-bold">{formFields[key]}</p>
                 <p>{value.toString()}</p>
               </span>
             ))}
