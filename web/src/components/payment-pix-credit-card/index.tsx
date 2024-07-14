@@ -10,13 +10,24 @@ import { WrapperWithDivider } from "./wrapper-with-divider";
 import { useSocket } from "../use-socket";
 import { useCustomModal } from "../custom-modal";
 import { ErrorMessage } from "../error-message";
+import { CustomInput } from "./custom-input";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
 type QrCodeStepProps = { value: string; qrCodeValue: string };
 
-function CreditCardStep(){
-	return
+function CreditCardStep() {
+  return (
+    <form>
+      <CustomInput label="Nome completo" />
+      <CustomInput label="CPF" />
+      <CustomInput label="Número do cartão" />
+      <span className="flex gap-4">
+        <CustomInput label="Vencimento" />
+        <CustomInput label="CVV" />
+      </span>
+    </form>
+  );
 }
 
 function QrCodeStep({ value, qrCodeValue }: QrCodeStepProps) {
@@ -97,8 +108,11 @@ export function PaymentPixCreditCard({
           title={"Algo deu errado! (╯°□°)╯︵ ┻━┻"}
         />
       </Modal>
-      <QrCodeStep value={firstPayment} qrCodeValue={qrCodeValue.toString()} />
-<CreditCardStep/>
+      {isFirstPaymentConfirmed ? (
+        <CreditCardStep />
+      ) : (
+        <QrCodeStep value={firstPayment} qrCodeValue={qrCodeValue.toString()} />
+      )}
       <div className="flex flex-col items-center font-extrabold">
         <p className="text-sm text-gray-400">Prazo de pagamento</p>
         <p className="text-xs">15/11/2021 - 08:17</p>
