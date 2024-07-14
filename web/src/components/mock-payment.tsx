@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import { formatPrice } from "../utils/format-price";
 import { useMutation } from "@tanstack/react-query";
+import { ErrorMessage } from "./error-message";
+import { SuccessMessage } from "./success-message";
 
 export function MockPayment() {
   const [searchParams] = useSearchParams();
@@ -22,36 +24,36 @@ export function MockPayment() {
   const onConfirm = async () => mutation.mutate();
 
   return (
-    <div className="grid size-full place-content-center place-items-center gap-4 pb-12">
-      <p>
-        Valor:{" "}
-        <strong className="text-body-gray-400">
-          {formatPrice({ value: Number(value), currency })}
-        </strong>
-      </p>
-      <Button
-        disabled={mutation.isPending || mutation.isSuccess}
-        onClick={onConfirm}
-        variant="contained"
-      >
-        Confirmar pagamento
-      </Button>
-      {mutation.isSuccess && (
-        <span className="mt-4 flex flex-col items-center gap-1">
-          <p className="text-2xl font-bold text-custom-green-400">
-            Pedido confirmado!
-          </p>
-          <p className="text-sm">Você já pode fechar esta janela.</p>
-        </span>
-      )}
-      {mutation.isError && (
-        <span className="mt-4 flex flex-col items-center gap-1">
-          <p className="text-2xl font-bold text-red-500">
-            Algo deu errado (︶︹︶)
-          </p>
-          <p className="text-sm">Tente atualizar a página.</p>
-        </span>
-      )}
+    <div className="grid size-full grid-rows-1 place-content-center place-items-center gap-4 pb-12">
+      <div className="flex flex-col items-center gap-4">
+        <p>
+          Valor:{" "}
+          <strong className="text-body-gray-400">
+            {formatPrice({ value: Number(value), currency })}
+          </strong>
+        </p>
+        <Button
+          disabled={mutation.isPending || mutation.isSuccess}
+          onClick={onConfirm}
+          variant="contained"
+        >
+          Confirmar pagamento
+        </Button>
+      </div>
+      <div className="min-h-24">
+        {mutation.isSuccess && (
+          <SuccessMessage
+            title="Pedido confirmado (＾▽＾)"
+            body={<p className="text-sm">Você já pode fechar esta janela.</p>}
+          />
+        )}
+        {mutation.isError && (
+          <ErrorMessage
+            title={"Algo deu errado (︶︹︶)"}
+            body={<p className="text-sm">Tente atualizar a página.</p>}
+          />
+        )}
+      </div>
     </div>
   );
 }
