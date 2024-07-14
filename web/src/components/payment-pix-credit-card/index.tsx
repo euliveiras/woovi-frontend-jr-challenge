@@ -7,7 +7,8 @@ import { formatPrice } from "../../utils/format-price";
 import { stepper } from "./custom-stepper";
 import { CustomAccordion } from "./custom-accordion";
 import { WrapperWithDivider } from "./wrapper-with-divider";
-import {useSocket} from "../use-socket";
+import { useSocket } from "../use-socket";
+import { useCustomModal } from "../custom-modal";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
@@ -18,8 +19,9 @@ export function PaymentPixCreditCard({
   onNextStep,
 }: PaymentPixCreditCardProps) {
   const [searchParams] = useSearchParams();
-	const { events } = useSocket()
-const isFirstPaymentConfirmed = events.includes("first-payment:read")
+  const { events, isConnected } = useSocket();
+  const { Modal } = useCustomModal();
+  const isFirstPaymentConfirmed = events.includes("first-payment:read");
 
   const id = searchParams.get("id");
   const value = Number(searchParams.get("value"));
@@ -44,6 +46,9 @@ const isFirstPaymentConfirmed = events.includes("first-payment:read")
 
   return (
     <div className="size-full overflow-scroll">
+      <Modal open={!isConnected}>
+        <p>Algo deu errado</p>
+      </Modal>
       <StepHeader className="leading-tight">
         <p>João, pague a entrada de {firstPayment} pelo Pix</p>
       </StepHeader>
@@ -71,7 +76,10 @@ const isFirstPaymentConfirmed = events.includes("first-payment:read")
       </div>
       <div className="flex flex-col">
         <WrapperWithDivider>
-          <stepper.Container activeStep={isFirstPaymentConfirmed ? 1 : 0} className="w-full">
+          <stepper.Container
+            activeStep={isFirstPaymentConfirmed ? 1 : 0}
+            className="w-full"
+          >
             <stepper.Step key={steps[0].label}>
               <stepper.StepLabel>{steps[0].label}</stepper.StepLabel>
               <stepper.StepContent>{firstPayment}</stepper.StepContent>

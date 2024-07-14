@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
 import { socket } from "../utils/socket";
 
-type Events = "first-payment:read"
+type Events = "first-payment:read";
 
 export function useSocket() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [isConnected, setIsConnected] = useState<boolean>(true);
   const [events, setEvents] = useState<Events[]>([]);
+
+  useEffect(() => {
+    // no-op if the socket is already connected
+    socket.connect();
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     function onConnect() {
@@ -13,6 +22,10 @@ export function useSocket() {
     }
 
     function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    function onConnectionError() {
       setIsConnected(false);
     }
 
@@ -25,6 +38,7 @@ export function useSocket() {
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
+    socket.on("connect_error", onConnectionError);
     socket.on("first-payment:read", onFirstPaymentRead);
 
     return () => {
