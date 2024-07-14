@@ -29,8 +29,16 @@ export function MockPayment() {
         onClick={onConfirm}
         variant="contained"
       >
-        {mutation.isSuccess ? "Pagamento confirmado" : "Confirmar pagamento"}
+        Confirmar pagamento
       </Button>
+      {mutation.isSuccess && (
+        <span className="mt-4 flex flex-col items-center gap-1">
+          <p className="text-2xl font-bold text-custom-green-400">
+            Pedido confirmado!
+          </p>
+          <p className="text-sm">Você já pode fechar esta janela.</p>
+        </span>
+      )}
     </div>
   );
 }
