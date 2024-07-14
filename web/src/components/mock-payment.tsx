@@ -10,7 +10,7 @@ export function MockPayment() {
   const mutation = useMutation({
     mutationFn: async () => {
       const res = await fetch(
-        new URL(import.meta.env.VITE_SOCKET_URL) + "mock-payment",
+        new URL(import.meta.env.VITE_SOCKET_URL) + "mock-payment/first",
       );
       if (res.status < 200 || res.status >= 300) throw new Error();
 
