@@ -1,12 +1,12 @@
-import {useMutation} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useCustomModal } from "../custom-modal";
 import { CustomInput } from "./custom-input";
 import { CustomSelect } from "./custom-select";
-import  CircularProgress from "@mui/material/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import { FormEvent, useRef } from "react";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import {ErrorMessage} from "../error-message";
+import { ErrorMessage } from "../error-message";
 
 export function CreditCard({
   installment,

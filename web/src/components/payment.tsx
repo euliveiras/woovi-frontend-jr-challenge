@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { PaymentMethod } from "./payment-method";
 import { PaymentPixCreditCard } from "./payment-pix-credit-card";
 import { PaymentValue } from "./payment-value";
+import { PaymentFinished } from "./payment-finished";
 
 export function Payment() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +18,7 @@ export function Payment() {
       {step === "0" && <PaymentValue onNextStep={onNextStep} />}
       {step === "1" && <PaymentMethod onNextStep={onNextStep} />}
       {step === "2" && <PaymentPixCreditCard onNextStep={onNextStep} />}
+      {step === "3" && <PaymentFinished />}
     </>
   );
 }
