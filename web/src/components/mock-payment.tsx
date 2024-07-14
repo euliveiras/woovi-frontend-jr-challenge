@@ -24,7 +24,7 @@ export function MockPayment() {
   const onConfirm = async () => mutation.mutate();
 
   return (
-    <div className="grid size-full grid-rows-1 place-content-center place-items-center gap-4 pb-12">
+    <div className="grid size-full place-content-center place-items-center gap-4 pb-12">
       <div className="flex flex-col items-center gap-4">
         <p>
           Valor:{" "}
