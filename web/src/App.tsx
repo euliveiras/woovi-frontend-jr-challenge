@@ -10,6 +10,8 @@ function App() {
   useEffect(() => {
     if (!window.location.pathname.includes("mock-payment")) {
       navigate(`/payment?${searchParams}`, { replace: true });
+    } else {
+      navigate(`/mock-payment?${searchParams}`);
     }
   }, [navigate, searchParams]);
 
