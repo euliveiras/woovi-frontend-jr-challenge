@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { io } from "./server";
+import { io } from "./";
 
 const routes = Router();
 
