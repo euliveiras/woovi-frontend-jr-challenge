@@ -14,8 +14,7 @@ export function CustomAccordion() {
         Como funciona?
       </AccordionSummary>
       <AccordionDetails>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        malesuada lacus ex, sit amet blandit leo lobortis eget.
+			A metade do pagamento deve ser feita em PIX e o restante pode ser parcelado no cartão.
       </AccordionDetails>
     </Accordion>
   );
