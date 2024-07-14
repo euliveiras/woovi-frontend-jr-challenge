@@ -49,17 +49,22 @@ function CreditCardStep({
   onFinish(searchParams: URLSearchParams): void;
 }) {
   const { Modal, showModal, isOpen, hideModal } = useCustomModal();
-  const navigate = useNavigate();
-  const { Modal: ErrorModal } = useCustomModal();
+  const {
+    Modal: ErrorModal,
+    hideModal: hideErrorModal,
+    isOpen: isErrorModalOpen,
+    showModal: showErrorModal,
+  } = useCustomModal();
   const ref = useRef<HTMLFormElement>(null);
   const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const mutation = useMutation({
     mutationFn: async (form: FormData) => {
       const headers = new Headers();
       headers.set("Content-type", "application/json");
 
       const res = await fetch(
-        new URL(import.meta.env.VITE_SOCKET_URL) + "amock-payment/last",
+        new URL(import.meta.env.VITE_SOCKET_URL) + "mock-payment/last",
         {
           body: JSON.stringify(Object.fromEntries(form)),
           headers,
@@ -72,6 +77,7 @@ function CreditCardStep({
       return res;
     },
     onSuccess: () => onFinish(searchParams),
+    onError: () => showErrorModal(),
   });
 
   const onConfirm = () => {
@@ -89,17 +95,23 @@ function CreditCardStep({
   return (
     <form ref={ref} onSubmit={onSubmit} className="mt-2 flex flex-col gap-2">
       <ErrorModal
-        onCancel={() => hideModal()}
+        onCancel={() => hideErrorModal()}
         CloseButton={
-          <Button variant="contained" onClick={() => navigate(0)}>
-            Atualizar página
+          <Button variant="contained" onClick={() => hideErrorModal()}>
+            Voltar
           </Button>
         }
-        open={mutation.isError}
+        open={isErrorModalOpen}
       >
         <ErrorMessage
           titleProps={{ className: "text-lg" }}
           title={"Algo deu errado! (╯°□°)╯︵ ┻━┻"}
+          body={
+            <p className="text-center">
+              Por favor, entre e contato com o suporte e informe o número
+              identificador: <strong>{id}</strong>
+            </p>
+          }
         />
       </ErrorModal>
       <Modal
