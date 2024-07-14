@@ -50,7 +50,7 @@ export function PaymentPixCreditCard({
         onCancel={() => {}}
         open={!isConnected}
         CloseButton={
-          <Button variant="contained" onClick={() => navigate(0)}>
+          <Button variant="contained" onClick={() => navigate(`/`)}>
             Atualizar página
           </Button>
         }
