@@ -3,9 +3,13 @@ import { io } from "./server";
 
 const routes = Router();
 
-routes.get("/mock-payment", async (req: Request, res: Response) => {
+routes.get("/mock-payment/first", async (req: Request, res: Response) => {
   io.emit("first-payment:read");
   return res.send();
+});
+
+routes.post("/mock-payment/last", async (req: Request, res: Response) => {
+  return new Promise((resolve) => setTimeout(() => res.send(), 2000));
 });
 
 export { routes };
