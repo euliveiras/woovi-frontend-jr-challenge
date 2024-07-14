@@ -2,15 +2,17 @@ import Button from "@mui/material/Button";
 import { QRCodeSVG } from "qrcode.react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { StepHeader } from "../step-header";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { formatPrice } from "../../utils/format-price";
 import { stepper } from "./custom-stepper";
 import { CustomAccordion } from "./custom-accordion";
 import { WrapperWithDivider } from "./wrapper-with-divider";
 import { useSocket } from "../use-socket";
 import { useCustomModal } from "../custom-modal";
+import { ErrorMessage } from "../error-message";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
+
 
 type PaymentPixCreditCardProps = {
   onNextStep(searchParams: URLSearchParams): void;
@@ -19,6 +21,7 @@ export function PaymentPixCreditCard({
   onNextStep,
 }: PaymentPixCreditCardProps) {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { events, isConnected } = useSocket();
   const { Modal } = useCustomModal();
   const isFirstPaymentConfirmed = events.includes("first-payment:read");
@@ -46,8 +49,20 @@ export function PaymentPixCreditCard({
 
   return (
     <div className="size-full overflow-scroll">
-      <Modal open={!isConnected}>
-        <p>Algo deu errado</p>
+      <Modal
+        onCancel={() => {}}
+        onConfirm={() => {}}
+        open={!isConnected}
+        CloseButton={
+          <Button variant="contained" onClick={() => navigate(0)}>
+            Atualizar página
+          </Button>
+        }
+      >
+        <ErrorMessage
+          titleProps={{ className: "text-lg" }}
+          title={"Algo deu errado! (╯°□°)╯︵ ┻━┻"}
+        />
       </Modal>
       <StepHeader className="leading-tight">
         <p>João, pague a entrada de {firstPayment} pelo Pix</p>

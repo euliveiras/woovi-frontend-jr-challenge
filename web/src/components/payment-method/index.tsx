@@ -10,6 +10,7 @@ import { useCustomModal } from "../custom-modal";
 import { useSearchParams } from "react-router-dom";
 import { StepHeader } from "../step-header";
 import { calculateFee } from "../../utils/calculate-fee";
+import { Button } from "@mui/material";
 
 const installments = [1, 2, 3, 4, 5, 6, 7];
 
@@ -65,6 +66,16 @@ export function PaymentMethod({ onNextStep }: StepProps) {
         open={typeof selectedInstallment === "string"}
         onCancel={onCancel}
         onConfirm={onConfirm}
+        CloseButton={
+          <Button variant="outlined" onClick={onCancel}>
+            cancelar
+          </Button>
+        }
+        ConfirmButton={
+          <Button variant="contained" onClick={onConfirm}>
+            confirmar
+          </Button>
+        }
       >
         <p>Parcelar em {selectedInstallment}?</p>
       </Modal>
