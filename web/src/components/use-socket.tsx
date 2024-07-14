@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { socket } from "../utils/socket";
 
+type Events = "first-payment:read"
+
 export function useSocket() {
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [events, setEvents] = useState<string[]>([]);
+  const [events, setEvents] = useState<Events[]>([]);
 
   useEffect(() => {
     function onConnect() {
