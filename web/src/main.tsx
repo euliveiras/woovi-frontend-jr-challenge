@@ -7,12 +7,14 @@ import { theme } from "./theme.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Payment } from "./components/payment.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PageNotFound } from "./page-not-found.tsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <PageNotFound />,
     children: [
       {
         path: "payment",
