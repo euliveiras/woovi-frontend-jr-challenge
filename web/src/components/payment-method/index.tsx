@@ -65,7 +65,6 @@ export function PaymentMethod({ onNextStep }: StepProps) {
       <Modal
         open={typeof selectedInstallment === "string"}
         onCancel={onCancel}
-        onConfirm={onConfirm}
         CloseButton={
           <Button variant="outlined" onClick={onCancel}>
             cancelar
