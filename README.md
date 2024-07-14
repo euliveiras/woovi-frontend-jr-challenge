@@ -3,7 +3,7 @@
 Challenge proposed by woovi which consists in a collection of screen designs [listed here](https://woovi.com/jobs/challenges/frontend-engineer/). 
 The candidate need to build those screens with React, mobile first, thinking in the edge cases and best patterns in seven days.
 
-![](https://github.com/euliveiras/fipe-price-query/blob/main/preview-fipe-query-price.gif)
+[![](https://github.com/euliveiras/fipe-price-query/blob/main/preview-fipe-query-price.gif)](https://github.com/user-attachments/assets/560e8272-9f51-46a4-88d8-24f7636072cf)
 
 ## Table of content
 
