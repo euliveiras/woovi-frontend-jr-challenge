@@ -107,32 +107,12 @@ export function CreditCard({
             ))}
         </div>
       </Modal>
-      <CustomInput
-        defaultValue={"matheus"}
-        required
-        name="name"
-        label="Nome completo"
-      />
-      <CustomInput defaultValue={"matheus"} name="cpf" required label="CPF" />
-      <CustomInput
-        required
-        defaultValue={"matheus"}
-        name="card-number"
-        label="Número do cartão"
-      />
+      <CustomInput required name="name" label="Nome completo" />
+      <CustomInput name="cpf" required label="CPF" />
+      <CustomInput required name="card-number" label="Número do cartão" />
       <span className="flex gap-4">
-        <CustomInput
-          required
-          defaultValue={"matheus"}
-          name="card-due-date"
-          label="Vencimento"
-        />
-        <CustomInput
-          required
-          defaultValue={"matheus"}
-          name="card-cvv"
-          label="CVV"
-        />
+        <CustomInput required name="card-due-date" label="Vencimento" />
+        <CustomInput required name="card-cvv" label="CVV" />
       </span>
       <CustomSelect
         name="card-installments"
