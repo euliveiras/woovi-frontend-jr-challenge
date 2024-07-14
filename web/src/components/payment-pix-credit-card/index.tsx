@@ -46,7 +46,7 @@ function CreditCardStep({
   value: number;
 }) {
   return (
-    <form className="flex flex-col">
+    <form className="mt-2 flex flex-col gap-2">
       <CustomInput label="Nome completo" />
       <CustomInput label="CPF" />
       <CustomInput label="Número do cartão" />
@@ -55,9 +55,11 @@ function CreditCardStep({
         <CustomInput label="CVV" />
       </span>
       <CustomSelect value={value} installment={installment} />
-      <Button variant="contained" type="submit">
-        Pagar
-      </Button>
+      <div className="w-full py-2">
+        <Button fullWidth variant="contained" type="submit">
+          Pagar
+        </Button>
+      </div>
     </form>
   );
 }
