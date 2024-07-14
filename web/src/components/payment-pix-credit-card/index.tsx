@@ -13,6 +13,43 @@ import { ErrorMessage } from "../error-message";
 
 const steps = [{ label: "1ª entrada no Pix" }, { label: "2ª no cartão" }];
 
+type QrCodeStepProps = { value: string; qrCodeValue: string };
+
+function CreditCardStep(){
+	return
+}
+
+function QrCodeStep({ value, qrCodeValue }: QrCodeStepProps) {
+  const onCopy = () => {
+    navigator.clipboard.writeText(qrCodeValue);
+  };
+
+  return (
+    <>
+      <StepHeader className="leading-tight">
+        <p>João, pague a entrada de {value} pelo Pix</p>
+      </StepHeader>
+      <section className="flex flex-col gap-4">
+        <div className="mx-auto flex w-fit items-center justify-center rounded-md border-2 border-custom-green-400 p-4">
+          <QRCodeSVG value={qrCodeValue} size={200} />
+        </div>
+        <div className="px-6 pb-2">
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            endIcon={<ContentCopyIcon />}
+            onClick={onCopy}
+          >
+            <p className="w-fit whitespace-nowrap font-semibold normal-case">
+              Clique para copiar QR CODE
+            </p>
+          </Button>
+        </div>
+      </section>
+    </>
+  );
+}
 
 type PaymentPixCreditCardProps = {
   onNextStep(searchParams: URLSearchParams): void;
@@ -43,10 +80,6 @@ export function PaymentPixCreditCard({
     currency,
   });
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(qrCodeValue.toString());
-  };
-
   return (
     <div className="size-full overflow-scroll">
       <Modal
@@ -64,27 +97,8 @@ export function PaymentPixCreditCard({
           title={"Algo deu errado! (╯°□°)╯︵ ┻━┻"}
         />
       </Modal>
-      <StepHeader className="leading-tight">
-        <p>João, pague a entrada de {firstPayment} pelo Pix</p>
-      </StepHeader>
-      <section className="flex flex-col gap-4">
-        <div className="mx-auto flex w-fit items-center justify-center rounded-md border-2 border-custom-green-400 p-4">
-          <QRCodeSVG value={qrCodeValue.toString()} size={200} />
-        </div>
-        <div className="px-6 pb-2">
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            endIcon={<ContentCopyIcon />}
-            onClick={onCopy}
-          >
-            <p className="w-fit whitespace-nowrap font-semibold normal-case">
-              Clique para copiar QR CODE
-            </p>
-          </Button>
-        </div>
-      </section>
+      <QrCodeStep value={firstPayment} qrCodeValue={qrCodeValue.toString()} />
+<CreditCardStep/>
       <div className="flex flex-col items-center font-extrabold">
         <p className="text-sm text-gray-400">Prazo de pagamento</p>
         <p className="text-xs">15/11/2021 - 08:17</p>
