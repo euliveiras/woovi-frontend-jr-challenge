@@ -30,7 +30,7 @@ export function PaymentPixCreditCard({
   const installment = searchParams.get("installment");
   const qrCodeValue = `${
     import.meta.env.VITE_API_URL
-  }/mock-payment?value=${Math.round(value / 2)}&id=${id}`;
+  }/?mock-payment=true&value=${Math.round(value / 2)}&id=${id}`;
 
   const firstPayment = formatPrice({
     value: Math.round(value / 2),

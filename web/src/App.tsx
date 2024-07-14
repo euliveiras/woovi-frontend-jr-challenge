@@ -8,11 +8,7 @@ function App() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!window.location.pathname.includes("mock-payment")) {
-      navigate(`/payment?${searchParams}`, { replace: true });
-    } else {
-      navigate(`/mock-payment?${searchParams}`);
-    }
+    navigate(`/payment?${searchParams}`, { replace: true });
   }, [navigate, searchParams]);
 
   return (
