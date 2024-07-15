@@ -4,5 +4,5 @@ import App from "../src/App";
 
 test("loads and displays greeting", async () => {
   render(<App />);
-  expect(screen.getByText("Prosseguir")).toBeDefined();
+  expect(screen.getByText("Prosseguir")).toBeInTheDocument();
 });

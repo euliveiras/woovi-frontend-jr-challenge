@@ -5,6 +5,7 @@ import { theme } from "../src/theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@mui/material/styles";
 import { ReactElement } from "react";
+export * from '@testing-library/jest-dom/vitest'
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const customRender = (
   options?: Omit<RenderOptions, "wrapper">,
 ) => render(ui, { wrapper: AllTheProviders, ...options });
 // re-export everything
-export * from "@testing-library/react";
 // override render method
+
+export * from "@testing-library/react
 export { customRender as render };
