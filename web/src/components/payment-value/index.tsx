@@ -24,6 +24,7 @@ export function PaymentValue({
     >
       <p>Digite o valor do pagamento</p>
       <CurrencyInput
+        className="rounded border-2 border-custom-green-400 p-4"
         id="input-example"
         data-testid="payment-value-input"
         name="input-name"
