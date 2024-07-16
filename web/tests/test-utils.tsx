@@ -1,6 +1,4 @@
 import { RenderOptions, render } from "@testing-library/react";
-import { RouterProvider } from "react-router-dom";
-import { router } from "../src/router";
 import { theme } from "../src/theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@mui/material/styles";
@@ -9,12 +7,10 @@ export * from "@testing-library/jest-dom/vitest";
 
 const queryClient = new QueryClient();
 
-const AllTheProviders = () => {
+const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ThemeProvider>
   );
 };
