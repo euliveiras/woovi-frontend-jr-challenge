@@ -11,8 +11,8 @@ import { useSearchParams } from "react-router-dom";
 import { StepHeader } from "../step-header";
 import { calculateFee } from "../../utils/calculate-fee";
 import { Button } from "@mui/material";
+import {installMents} from "../../utils/installmentsNumber";
 
-const installments = [1, 2, 3, 4, 5, 6, 7];
 
 function Wrapper({
   children,
@@ -83,7 +83,7 @@ export function PaymentMethod({ onNextStep }: StepProps) {
       </StepHeader>
       <div className="overflow-scroll px-4">
         <RadioGroup className="grid">
-          {installments.map((installment) => {
+          {installMents.map((installment) => {
             if (installment === 1) {
               return (
                 <Wrapper key={installment}>
