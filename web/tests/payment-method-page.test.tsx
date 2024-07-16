@@ -4,10 +4,10 @@ import { PaymentMethod } from "../src/components/payment-method";
 import { MemoryRouter } from "react-router-dom";
 import { formatPrice } from "../src/utils/format-price";
 import { calculateFee } from "../src/utils/calculate-fee";
+import {installMents} from "../src/utils/installmentsNumber";
 
 describe("Payment method page", async () => {
   const value = 13909123;
-  const installMents = [1, 2, 3, 4, 5, 6, 7];
   const currency = "BRL";
   beforeAll(() => {
     render(
