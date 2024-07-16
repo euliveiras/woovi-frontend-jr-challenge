@@ -25,6 +25,7 @@ export function PaymentValue({
       <p>Digite o valor do pagamento</p>
       <CurrencyInput
         id="input-example"
+        data-testid="payment-value-input"
         name="input-name"
         placeholder="Please enter a number"
         value={value}
@@ -36,6 +37,7 @@ export function PaymentValue({
       />
 
       <Button
+        data-testid="payment-value-proceed-button"
         type="submit"
         variant="contained"
         sx={{ marginTop: "auto" }}
