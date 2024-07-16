@@ -11,8 +11,7 @@ import { useSearchParams } from "react-router-dom";
 import { StepHeader } from "../step-header";
 import { calculateFee } from "../../utils/calculate-fee";
 import { Button } from "@mui/material";
-import {installMents} from "../../utils/installmentsNumber";
-
+import { installMents } from "../../utils/installmentsNumber";
 
 function Wrapper({
   children,
