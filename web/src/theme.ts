@@ -1,6 +1,22 @@
 import { createTheme } from "@mui/material";
+import '@mui/material/styles';
+
+declare module "@mui/material/styles" {
+  interface Theme {
+    custom: {
+      color: { green: string; gray: string };
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    custom: {
+      color: { green?: string; gray?: string };
+    };
+  }
+}
 
 export const theme = createTheme({
+  custom: { color: { gray: "#4D4D4D" } },
   palette: {
     secondary: {
       main: "#133A6F",
