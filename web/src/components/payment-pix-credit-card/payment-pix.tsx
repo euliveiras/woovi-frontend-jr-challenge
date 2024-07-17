@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { formatPrice } from "../../utils/format-price";
 import { stepper } from "./custom-stepper";
-import { CustomAccordion } from "./custom-accordion";
+import { accordion } from "./custom-accordion";
 import { WrapperWithDivider } from "./wrapper-with-divider";
 import { useSocket } from "../use-socket";
 import { useCustomModal } from "../custom-modal";
@@ -82,7 +82,12 @@ export function PaymentPix({ onNextStep }: PaymentPixCreditCardProps) {
           </span>
         </WrapperWithDivider>
         <WrapperWithDivider>
-          <CustomAccordion />
+          <accordion.Container>
+            <accordion.Summary>Como funciona?</accordion.Summary>
+            <accordion.Details>
+              Você completa o pagamento lendo o qr-code com seu celular
+            </accordion.Details>
+          </accordion.Container>
         </WrapperWithDivider>
       </div>
       <span className="block pt-4 text-center font-bold leading-tight">
