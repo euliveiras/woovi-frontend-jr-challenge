@@ -18,9 +18,9 @@ export function CustomModal({
   return (
     <Modal open={open} onClose={onClose}>
       <div className="flex size-full items-center justify-center">
-        <Paper className="m-8 flex min-h-56 min-w-36 flex-col items-center justify-center gap-8 p-8">
+        <Paper className="m-8 flex size-full h-56 max-w-lg flex-col items-center justify-center gap-8 p-8">
           {children}
-          <span className="flex gap-4">
+          <span className="mt-auto flex gap-4">
             {CloseButton}
             {ConfirmButton}
           </span>
