@@ -8,7 +8,7 @@ type QrCodeStepProps = { value: string; qrCodeValue: string };
 
 export function QrCode({ value, qrCodeValue }: QrCodeStepProps) {
   const [searchParams] = useSearchParams();
-  const installments = Number(searchParams.get("installments"));
+  const installment = Number(searchParams.get("installment"));
 
   const onCopy = () => {
     navigator.clipboard.writeText(qrCodeValue);
@@ -17,7 +17,7 @@ export function QrCode({ value, qrCodeValue }: QrCodeStepProps) {
   return (
     <>
       <StepHeader className="leading-tight">
-        {installments > 1 ? (
+        {installment > 1 ? (
           <p>João, pague a entrada de {value} pelo Pix</p>
         ) : (
           <p>João, pague {value} pelo Pix</p>
