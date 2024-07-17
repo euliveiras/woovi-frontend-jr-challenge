@@ -9,7 +9,7 @@ import { useCustomModal } from "../custom-modal";
 import { ErrorMessage } from "../error-message";
 import { QrCode } from "./qr-code";
 import { useEffect } from "react";
-import {steps} from "./steps";
+import { steps } from "./steps";
 
 type PaymentPixCreditCardProps = {
   onNextStep(searchParams: URLSearchParams): void;
