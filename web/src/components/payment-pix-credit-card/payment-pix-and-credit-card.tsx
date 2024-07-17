@@ -9,8 +9,7 @@ import { useCustomModal } from "../custom-modal";
 import { ErrorMessage } from "../error-message";
 import { CreditCard } from "./credit-card";
 import { QrCode } from "./qr-code";
-import {steps} from "./steps";
-
+import { steps } from "./steps";
 
 type PaymentPixAndCreditCardProps = {
   onNextStep(searchParams: URLSearchParams): void;
@@ -27,7 +26,7 @@ export function PaymentPixAndCreditCard({
   const id = searchParams.get("id");
   const value = Number(searchParams.get("value"));
   const currency = searchParams.get("currency");
-  const installment = Number(searchParams.get("installment"))
+  const installment = Number(searchParams.get("installment"));
   const qrCodeValue = `${
     import.meta.env.VITE_API_URL
   }/?mock-payment=true&value=${Math.round(value / 2)}&id=${id}`;
@@ -61,7 +60,7 @@ export function PaymentPixAndCreditCard({
         />
       </Modal>
       {isFirstPaymentConfirmed ? (
-         <CreditCard
+        <CreditCard
           value={lastPaymentValue}
           installment={installment}
           onFinish={() => onNextStep(searchParams)}
