@@ -53,7 +53,8 @@ export function PaymentPix({ onNextStep }: PaymentPixCreditCardProps) {
       >
         <ErrorMessage
           titleProps={{ className: "text-lg" }}
-          title={"Algo deu errado! (╯°□°)╯︵ ┻━┻"}
+          title={"Algo deu errado!"}
+          body={<p className="font-extrabold text-red-500">(╯°□°)╯︵ ┻━┻</p>}
         />
       </Modal>
 
