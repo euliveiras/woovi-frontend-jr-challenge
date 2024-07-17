@@ -124,9 +124,13 @@ export function CreditCard({
         <CustomInput required name="card-cvv" label="CVV" />
       </span>
       <CustomSelect
-        name="card-installments"
         value={value}
         installment={installment}
+        selectProps={{
+          name: "card-installments",
+          defaultValue: installment,
+          disabled: true,
+        }}
       />
       <div className="w-full py-2">
         <Button
