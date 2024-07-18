@@ -12,7 +12,7 @@ describe("Payment method page", async () => {
   beforeAll(() => {
     render(
       <MemoryRouter
-        initialEntries={[`/payment?value=${value}&currency=${currency+1}`]}
+        initialEntries={[`/payment?value=${value}&currency=${currency}`]}
       >
         <PaymentMethod onNextStep={() => {}} />
       </MemoryRouter>,
