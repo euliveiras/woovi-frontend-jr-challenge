@@ -1,5 +1,5 @@
 name: Web app tests CI
-
+run-name: ${{ github.actor }} running tests
 on: [push]
 
 jobs: 
